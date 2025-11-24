@@ -12,10 +12,15 @@ const getClient = () => {
 };
 
 export const generateLuxuryQuote = async (context: 'start' | 'finish', lang: LanguageCode = 'en'): Promise<string> => {
+  // Override for Indonesian to show specific message requested
+  if (lang === 'id') {
+    return "Saat ini proses promosi sedang dijalankan, tunggu sebentar.";
+  }
+
   const ai = getClient();
   const langName = translations[lang]?.name || "English";
   
-  if (!ai) return lang === 'id' ? "Keanggunan adalah sebuah sikap." : "Elegance is an attitude."; // Fallback
+  if (!ai) return "Simplicity is the ultimate sophistication.";
 
   try {
     const prompt = context === 'start' 
@@ -27,9 +32,9 @@ export const generateLuxuryQuote = async (context: 'start' | 'finish', lang: Lan
       contents: prompt,
     });
 
-    return response.text?.trim() || (lang === 'id' ? "Kesederhanaan adalah kecanggihan tertinggi." : "Simplicity is the ultimate sophistication.");
+    return response.text?.trim() || "Simplicity is the ultimate sophistication.";
   } catch (error) {
     console.error("Gemini API Error:", error);
-    return lang === 'id' ? "Kualitas diingat lama setelah harga dilupakan." : "Quality is remembered long after the price is forgotten.";
+    return "Quality is remembered long after the price is forgotten.";
   }
 };

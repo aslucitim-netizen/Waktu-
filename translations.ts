@@ -27,7 +27,7 @@ export const translations: Record<LanguageCode, TranslationData> = {
     subtitle: "Waktu Agenda",
     waiting: "Silakan tunggu sampai proses selesai",
     selectMode: "Pilih mode di bawah",
-    consulting: "Silakan tunggu, saat ini sedang diproses",
+    consulting: "Saat ini proses promosi sedang dijalankan, tunggu sebentar",
     start: "Klik Untuk Mulai Mempromosikan",
     reset: "Klik Untuk Mulai Mempromosikan",
     running: "Sedang Berjalan...",

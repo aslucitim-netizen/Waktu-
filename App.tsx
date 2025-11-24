@@ -191,59 +191,64 @@ export default function App() {
       <main className="flex-grow container mx-auto px-6 py-16">
         
         {/* Timer Display Area */}
-        <div className="flex flex-col items-center justify-center mb-24 relative">
-           {/* Subtle Background decoration */}
-           <div className="absolute inset-0 flex items-center justify-center opacity-5 pointer-events-none">
-              <div className="w-64 h-64 rounded-full border border-[#1a1a1a]"></div>
+        <div className="flex flex-col items-center justify-center mb-24 relative min-h-[500px]">
+           {/* Subtle Background decoration - Enlarge for clarity */}
+           <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+              <div className="w-[28rem] h-[28rem] md:w-[34rem] md:h-[34rem] rounded-full border border-[#1a1a1a] opacity-[0.07]"></div>
            </div>
 
-           <div className="z-10 text-center">
-              <div className="text-[5rem] md:text-[7rem] lg:text-[8rem] leading-none serif text-[#1a1a1a] tabular-nums tracking-tighter font-light">
+           <div className="z-10 text-center flex flex-col items-center">
+              {/* Timer - Bolder and Clearer */}
+              <div className="text-[6rem] md:text-[8rem] lg:text-[10rem] leading-none serif text-[#1a1a1a] tabular-nums tracking-tight font-normal">
                 {formatTime(timeLeft)}
               </div>
               
-              <div className="h-20 flex items-center justify-center flex-col mt-4">
+              {/* Quote & Status Area */}
+              <div className="flex flex-col items-center justify-center mt-6 w-full max-w-3xl px-4">
                 {isLoadingQuote ? (
-                  <div className="animate-pulse text-xs tracking-widest uppercase text-gray-400">{t.consulting}</div>
+                  <div className="h-16 flex items-center justify-center">
+                    <div className="animate-pulse text-xs tracking-widest uppercase text-gray-400">{t.consulting}</div>
+                  </div>
                 ) : (
                   quote && (
-                    <p className="text-base md:text-lg serif italic max-w-2xl text-center text-[#2f4f4f] animate-fade-in px-4 leading-relaxed">
+                    <p className="text-lg md:text-2xl serif italic text-center text-[#2a2a2a] animate-fade-in leading-relaxed mb-8">
                       "{quote}"
                     </p>
                   )
                 )}
                 
-                {!quote && !isLoadingQuote && (
-                  <p className={`text-xs tracking-widest uppercase mt-2 ${timerStatus === 'RUNNING' ? 'text-green-800 animate-pulse' : 'text-gray-400'}`}>
-                    {timerStatus === 'RUNNING' ? t.waiting : t.selectMode}
-                  </p>
-                )}
-              </div>
+                {/* Status / Action Button - Styled as a clean box */}
+                <div className="mt-4">
+                  {timerStatus === 'IDLE' && (
+                    <button 
+                      onClick={startTimer}
+                      className="px-12 py-4 border border-[#1a1a1a] hover:bg-[#1a1a1a] hover:text-[#f6f5f1] transition-all duration-300 uppercase tracking-[0.2em] text-xs md:text-sm font-medium"
+                    >
+                      {t.start}
+                    </button>
+                  )}
+                  {timerStatus === 'RUNNING' && (
+                    <button 
+                      disabled
+                      className="px-12 py-4 border border-blue-200/50 text-slate-500 cursor-default uppercase tracking-[0.25em] text-xs md:text-sm font-medium bg-transparent"
+                    >
+                      {t.running}
+                    </button>
+                  )}
+                  {timerStatus === 'FINISHED' && (
+                    <button 
+                      onClick={resetTimer}
+                      className="px-12 py-4 bg-[#1a1a1a] text-white hover:bg-[#333] transition-all duration-300 uppercase tracking-[0.2em] text-xs md:text-sm font-medium shadow-xl"
+                    >
+                      {t.reset}
+                    </button>
+                  )}
+                </div>
 
-              <div className="mt-10">
-                {timerStatus === 'IDLE' && (
-                  <button 
-                    onClick={startTimer}
-                    className="px-10 py-4 border border-[#1a1a1a] hover:bg-[#1a1a1a] hover:text-[#f6f5f1] transition-all duration-300 uppercase tracking-[0.2em] text-xs md:text-sm font-medium"
-                  >
-                    {t.start}
-                  </button>
-                )}
-                {timerStatus === 'RUNNING' && (
-                  <button 
-                    disabled
-                    className="px-10 py-4 border border-gray-300 text-gray-400 cursor-not-allowed uppercase tracking-[0.2em] text-xs md:text-sm font-medium"
-                  >
-                    {t.running}
-                  </button>
-                )}
-                {timerStatus === 'FINISHED' && (
-                  <button 
-                    onClick={resetTimer}
-                    className="px-10 py-4 bg-[#1a1a1a] text-white hover:bg-[#333] transition-all duration-300 uppercase tracking-[0.2em] text-xs md:text-sm font-medium shadow-xl"
-                  >
-                    {t.reset}
-                  </button>
+                {!quote && !isLoadingQuote && timerStatus === 'IDLE' && (
+                   <p className="text-xs tracking-widest uppercase text-gray-400 mt-6">
+                     {t.selectMode}
+                   </p>
                 )}
               </div>
            </div>
