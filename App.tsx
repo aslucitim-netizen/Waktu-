@@ -15,21 +15,19 @@ const STORAGE_KEY_LANG = 'gucci_agenda_lang';
 const BASE_AGENDA_ITEMS = [
   { 
     id: 'focus', 
-    image: 'https://picsum.photos/id/1076/400/600?grayscale',
-    video: 'https://house-fastly-signed-eu-west-1-prod.brightcovecdn.com/media/v1/pmp4/static/clear/2924921183001/72a0a43c-b6a5-4e83-b80e-f82796b8a315/ab6d51c0-ffbd-47d0-b126-8887bcd0adf5/main.mp4?fastly_token=NjkyNDZiZTlfMzQzY2ZkNDEzNWJlYjdhYzFlZDFjMzdmNzc5NzU4NGFiMDEyZWFiYjIwMDgzN2U2ZTY4ODk4MTZkMDdiYWU4YV8vL2hvdXNlLWZhc3RseS1zaWduZWQtZXUtd2VzdC0xLXByb2QuYnJpZ2h0Y292ZWNkbi5jb20vbWVkaWEvdjEvcG1wNC9zdGF0aWMvY2xlYXIvMjkyNDkyMTE4MzAwMS83MmEwYTQzYy1iNmE1LTRlODMtYjgwZS1mODI3OTZiOGEzMTUvYWI2ZDUxYzAtZmZiZC00N2QwLWIxMjYtODg4N2JjZDBhZGY1L21haW4ubXA0'
+    image: 'http://t3.gstatic.com/images?q=tbn:ANd9GcRLP7Klm77lZxIy1IJJDbqvVW8iiOt_1yhN4iV0EE-0WjTCLanOxjJduLu3ZXl0Wg'
   },
   { 
     id: 'create', 
-    image: 'https://picsum.photos/id/1059/400/600?grayscale',
-    video: 'https://house-fastly-signed-eu-west-1-prod.brightcovecdn.com/media/v1/pmp4/static/clear/2924921183001/15f754d2-c039-4d97-a401-82d1b378e7f4/ac5a26d0-7ad1-44d5-ad3d-7fcb5d22c912/main.mp4?fastly_token=NjkyNDY4MDVfNDkzNjhlNGMxMjI4ZDgwYzU1NjE3NDU5MTEzYTY3NjI1ZjI3Nzk4MTFjNzRkODIyZGZhNDhiZjRjYjJlM2NhMl8vL2hvdXNlLWZhc3RseS1zaWduZWQtZXUtd2VzdC0xLXByb2QuYnJpZ2h0Y292ZWNkbi5jb20vbWVkaWEvdjEvcG1wNC9zdGF0aWMvY2xlYXIvMjkyNDkyMTE4MzAwMS8xNWY3NTRkMi1jMDM5LTRkOTctYTQwMS04MmQxYjM3OGU3ZjQvYWM1YTI2ZDAtN2FkMS00NGQ1LWFkM2QtN2ZjYjVkMjJjOTEyL21haW4ubXA0'
+    image: 'https://media.gucci.com/dynamic/b3c8/pFot1oaC0klViZzH+JAW490G9LuwUwx8hFTQv0ibrD8d4j85DBbGuyMuVdFQaMcaiE6tF94Awn0FUHisVqOQhsXOqWya4UoNsAjcNrLXzl1a7qhYYlxkH1fzPI_OLJ2Poheo0n4GOC9EPMVgI_vciOEldCjA3L+o7NBKLZFQgLG0zZUe9r54wXNG9YeCZcgpbzVTPhEZkvEPIFLnBfBLZg==/16-9_4000x2250_9.png'
   },
   { 
     id: 'review', 
-    image: 'https://media.gucci.com/content/DiaryHeroArticle_Standard_475x340/1741708803/DiaryHeroArticle_fw25fs-lineup_001_Default.jpg' 
+    image: 'https://media.gucci.com/dynamic/b3c8/hklAFidqdcZna8LBwb1Ox5XH9sJ6aSjJZCAm9Sm+uWtlhYCiW8X6kESYPIF50Gq4IbavTYmoPDDYYwPGfE9rAbfSz5UawKzRdqqZmgVo6zEBR3Xia5TDCRVt6ExdwYktoDk9D9Pk26CPRmhFOzHWfSlyqeY3PR229yPAk98_bdpeObZ1UaQFoaTLoJVyShqcZd10SP47raOI7ywp3X+22w==/16-9_4000x2250_12.png' 
   },
   { 
     id: 'rest', 
-    image: 'https://media.gucci.com/content/DiaryArticleSingle_Standard_768x1075/1743408916/DiaryArticleSingle_Gucci-Bamboo-032025-05_001_Default.jpg' 
+    image: 'https://media.gucci.com/dynamic/b3c8/rsEWOblEy0J+fKopcpDilLr_b0_OOl9VoifqhfbDMwrlep85ws6TDmVRlXLINevxb21siELfJAFoWwTOMzdYote9Wat+vAavr105iEXoiAkR7oz8joMMa8sy2ag+RFR4qUktHKwF0N8NtCDZsL6fFypFtIH+hQMXTizUcwFnsaO3lJhJNWFcgp_5nCQWwxaeXHFRtLhbG6wRvyactBeXWw==/16-9_4000x2250_7.png' 
   }
 ];
 
