@@ -1,7 +1,6 @@
-
 import React, { useState, useEffect, useCallback } from 'react';
-import { Marquee } from './components/Marquee';
 import { ArchCard } from './components/ArchCard';
+import { Marquee } from './components/Marquee';
 import { LanguageSelector } from './components/LanguageSelector';
 import { DetailPage } from './components/DetailPage';
 import { generateLuxuryQuote } from './services/geminiService';
@@ -40,7 +39,6 @@ export default function App() {
   const [selectedMode, setSelectedMode] = useState<string>('focus');
   const [quote, setQuote] = useState<string>("");
   const [isLoadingQuote, setIsLoadingQuote] = useState(false);
-  const [marqueeText, setMarqueeText] = useState("");
   const [currentLang, setCurrentLang] = useState<LanguageCode>('id');
   const [isDetailOpen, setIsDetailOpen] = useState(false);
 
@@ -59,14 +57,9 @@ export default function App() {
 
   // Get current translation object
   const t = translations[currentLang];
-
-  // Initialize/Update Random Marquee Text when language changes
-  useEffect(() => {
-    const phrases = t.phrases;
-    const shuffled = [...phrases].sort(() => 0.5 - Math.random());
-    const selected = shuffled.slice(0, 4);
-    setMarqueeText(selected.join(" • ") + " •");
-  }, [currentLang, t]);
+  
+  // Construct Marquee Text
+  const marqueeText = t.phrases.join(" • ");
 
   // Initialize timer state from local storage on mount
   useEffect(() => {
@@ -180,59 +173,58 @@ export default function App() {
   return (
     <div className={`min-h-screen flex flex-col bg-[#f6f5f1] ${currentLang === 'ar' ? 'rtl' : 'ltr'}`} dir={currentLang === 'ar' ? 'rtl' : 'ltr'}>
       {/* Header */}
-      <header className="pt-8 pb-6 px-6 relative">
+      <header className="py-10 px-6 relative">
         <div className="absolute top-6 right-6 z-50">
            <LanguageSelector currentLang={currentLang} onLanguageChange={handleLanguageChange} />
         </div>
         
-        <div className="text-center">
-          <h1 className="text-3xl md:text-4xl tracking-[0.2em] font-medium mb-1">GUCCI</h1>
-          <h2 className="text-sm md:text-base italic serif text-gray-600">{t.subtitle}</h2>
+        <div className="text-center flex flex-col items-center">
+          <h1 className="text-4xl md:text-5xl tracking-[0.2em] font-medium text-[#1a1a1a] mb-2">GUCCI</h1>
+          <h2 className="text-sm md:text-base italic serif text-[#555] tracking-wide">{t.subtitle}</h2>
         </div>
       </header>
 
-      {/* Marquee */}
+      {/* Marquee - Placed below header */}
       <Marquee text={marqueeText} />
 
       {/* Main Content */}
-      <main className="flex-grow container mx-auto px-6 py-12">
+      <main className="flex-grow container mx-auto px-6 py-16">
         
         {/* Timer Display Area */}
-        <div className="flex flex-col items-center justify-center mb-16 relative">
-           <div className="absolute top-0 opacity-10 pointer-events-none">
-              <svg width="300" height="300" viewBox="0 0 100 100" className="animate-spin-slow">
-                 <path d="M50 0 L55 45 L100 50 L55 55 L50 100 L45 55 L0 50 L45 45 Z" fill="#2f4f4f"/>
-              </svg>
+        <div className="flex flex-col items-center justify-center mb-24 relative">
+           {/* Subtle Background decoration */}
+           <div className="absolute inset-0 flex items-center justify-center opacity-5 pointer-events-none">
+              <div className="w-64 h-64 rounded-full border border-[#1a1a1a]"></div>
            </div>
 
            <div className="z-10 text-center">
-              <div className="text-[6rem] md:text-[8rem] leading-none serif text-[#1a1a1a] tabular-nums tracking-tighter">
+              <div className="text-[5rem] md:text-[7rem] lg:text-[8rem] leading-none serif text-[#1a1a1a] tabular-nums tracking-tighter font-light">
                 {formatTime(timeLeft)}
               </div>
               
-              <div className="h-16 flex items-center justify-center">
+              <div className="h-20 flex items-center justify-center flex-col mt-4">
                 {isLoadingQuote ? (
                   <div className="animate-pulse text-xs tracking-widest uppercase text-gray-400">{t.consulting}</div>
                 ) : (
                   quote && (
-                    <p className="text-lg serif italic max-w-lg text-center text-[#2f4f4f] animate-fade-in px-4">
+                    <p className="text-base md:text-lg serif italic max-w-2xl text-center text-[#2f4f4f] animate-fade-in px-4 leading-relaxed">
                       "{quote}"
                     </p>
                   )
                 )}
-                {!quote && !isLoadingQuote && timerStatus === 'IDLE' && (
-                   <p className="text-xs tracking-widest uppercase text-gray-400">{t.selectMode}</p>
-                )}
-                 {!quote && !isLoadingQuote && timerStatus === 'RUNNING' && (
-                   <p className="text-xs tracking-widest uppercase text-green-800 animate-pulse">{t.waiting}</p>
+                
+                {!quote && !isLoadingQuote && (
+                  <p className={`text-xs tracking-widest uppercase mt-2 ${timerStatus === 'RUNNING' ? 'text-green-800 animate-pulse' : 'text-gray-400'}`}>
+                    {timerStatus === 'RUNNING' ? t.waiting : t.selectMode}
+                  </p>
                 )}
               </div>
 
-              <div className="mt-8">
+              <div className="mt-10">
                 {timerStatus === 'IDLE' && (
                   <button 
                     onClick={startTimer}
-                    className="px-8 py-3 border border-[#1a1a1a] hover:bg-[#1a1a1a] hover:text-[#f6f5f1] transition-all duration-300 uppercase tracking-[0.2em] text-sm"
+                    className="px-10 py-4 border border-[#1a1a1a] hover:bg-[#1a1a1a] hover:text-[#f6f5f1] transition-all duration-300 uppercase tracking-[0.2em] text-xs md:text-sm font-medium"
                   >
                     {t.start}
                   </button>
@@ -240,7 +232,7 @@ export default function App() {
                 {timerStatus === 'RUNNING' && (
                   <button 
                     disabled
-                    className="px-8 py-3 border border-gray-300 text-gray-400 cursor-not-allowed uppercase tracking-[0.2em] text-sm"
+                    className="px-10 py-4 border border-gray-300 text-gray-400 cursor-not-allowed uppercase tracking-[0.2em] text-xs md:text-sm font-medium"
                   >
                     {t.running}
                   </button>
@@ -248,7 +240,7 @@ export default function App() {
                 {timerStatus === 'FINISHED' && (
                   <button 
                     onClick={resetTimer}
-                    className="px-8 py-3 bg-[#2f4f4f] text-white hover:bg-[#1a1a1a] transition-all duration-300 uppercase tracking-[0.2em] text-sm shadow-lg"
+                    className="px-10 py-4 bg-[#1a1a1a] text-white hover:bg-[#333] transition-all duration-300 uppercase tracking-[0.2em] text-xs md:text-sm font-medium shadow-xl"
                   >
                     {t.reset}
                   </button>
@@ -258,7 +250,7 @@ export default function App() {
         </div>
 
         {/* Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-x-12 md:gap-y-16 max-w-[1400px] mx-auto">
           {BASE_AGENDA_ITEMS.map((item) => {
             const modeData = t.modes[item.id as keyof typeof t.modes];
             return (
@@ -279,10 +271,10 @@ export default function App() {
 
       </main>
 
-      {/* Footer */}
-      <footer className="bg-black text-white py-12 mt-20">
+      {/* Footer - Black background, White Bold Text, No Logo */}
+      <footer className="bg-black text-white py-12 mt-12">
         <div className="container mx-auto px-6 text-center">
-          <p className="text-[10px] md:text-xs text-white tracking-wider font-bold">
+          <p className="text-[10px] md:text-[11px] text-white tracking-widest font-bold uppercase opacity-100">
             &copy; 2016 - 2025 Guccio Gucci S.p.A. - All rights reserved. SIAE LICENCE # 2294/I/1936 and 5647/I/1936
           </p>
         </div>
@@ -311,13 +303,6 @@ export default function App() {
         }
         .animate-fade-in {
           animation: fadeIn 1s ease-out forwards;
-        }
-        .animate-spin-slow {
-          animation: spin 60s linear infinite;
-        }
-        @keyframes spin {
-          from { transform: rotate(0deg); }
-          to { transform: rotate(360deg); }
         }
       `}</style>
     </div>

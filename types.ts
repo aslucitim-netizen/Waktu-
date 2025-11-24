@@ -10,6 +10,7 @@ export interface AgendaItem {
   title: string;
   subtitle: string;
   image: string;
+  video?: string;
   description: string;
 }
 
