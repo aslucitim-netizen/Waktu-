@@ -14,6 +14,9 @@ const getClient = () => {
 export const generateLuxuryQuote = async (context: 'start' | 'finish', lang: LanguageCode = 'en'): Promise<string> => {
   // Override for Indonesian to show specific message requested
   if (lang === 'id') {
+    if (context === 'finish') {
+      return "Silahkan hubungi kordinator untuk melakukan penarikan.";
+    }
     return "Saat ini proses promosi sedang dijalankan, tunggu sebentar.";
   }
 
